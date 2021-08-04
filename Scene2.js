@@ -104,6 +104,7 @@ class Scene2 extends Phaser.Scene {
         // spaceKey.onDown.add(this.jump, this); 
 
         this.spacebar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+       
 
         this.time.addEvent({
             delay: 1800,
@@ -176,6 +177,7 @@ class Scene2 extends Phaser.Scene {
     // }
 
     update() {
+        var hitPlatform = this.physics.add.overlap(this.dino, this.ground);
         // this.moveShip(this.ship1, 1);
         // this.moveShip(this.ship2, 2);
         // this.moveShip(this.ship3, 3);
@@ -184,9 +186,13 @@ class Scene2 extends Phaser.Scene {
 
         // this.movePlayerManager();
 
-        if(Phaser.Input.Keyboard.JustDown(this.spacebar)) {
+        if(Phaser.Input.Keyboard.JustDown(this.spacebar) && this.dino.body.touching.down && hitPlatform) {
             this.jump()
         }
+    //     if (this.spacebar.up.isDown && dino.body.touching.down && hitPlatform)
+    // {
+    //     dino.body.velocity.y = -350;
+    // }
         
         // for(var i = 0; i < this.projectiles.getChildren().length; i++){
         //     var beam = this.projectiles.getChildren()[i];
@@ -197,6 +203,7 @@ class Scene2 extends Phaser.Scene {
 
         this.physics.add.overlap(
             this.dino, this.cactuses, this.hitcactus, null, this);
+
     }
 
     // movePlayerManager() {
