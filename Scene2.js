@@ -88,8 +88,13 @@ class Scene2 extends Phaser.Scene {
     
         // Display the dino at the position x=100 and y=350
         this.dino = this.physics.add.sprite(100, 350, 'dino').setOrigin(-0.2, 0.5);
-        this.ground = this.add.tileSprite(0, 400, 0, 26, 'ground');
-    
+        this.dino.setCollideWorldBounds(true);
+
+        this.ground = this.add.tileSprite(0, 485, 0, 26, 'ground');
+        this.ground.checkWorldBounds = true;
+        this.ground.enableBody= true;
+        this.ground.immovable= true;
+
         // Add gravity to the dino to make it fall.
         this.dino.setGravityY(1000)            
     
