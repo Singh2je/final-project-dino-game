@@ -9,7 +9,7 @@ class Scene2 extends Phaser.Scene {
         this.labelScore = this.add.text(20, 20, "0", 
             { font: "30px Arial", fill: "#000000" });   
 
-        
+        this.gameOverText = this.add.text(20, 20, '', { fontSize: '32px', fill: '#000000' });
         this.cactuses = this.physics.add.group(); 
     
       
@@ -19,6 +19,7 @@ class Scene2 extends Phaser.Scene {
 
         this.ground = this.physics.add.staticImage(0, 400, 'ground');
         this.physics.add.collider(this.dino, this.ground);
+        this.physics.add.collider(this.cactuses, this.ground);
         this.physics.add.collider(this.dino, this.cactuses, this.hitcactus, null, this);
 
        // this.spacebar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
@@ -35,9 +36,15 @@ class Scene2 extends Phaser.Scene {
         
     }
 
+    
 
     update() {
        
+        // Call the 'restartGame' function
+        if (this.dino.alive = false)
+            this.gameOver = true;
+           
+
         this.ground.tilePositionX += 3;
 
         
@@ -50,7 +57,7 @@ class Scene2 extends Phaser.Scene {
         //     this.jump()
         // }
         
-        this.physics.add.collider(this.dino, this.cactuses, this.hitcactus, null, this);
+        this.physics.add.overlap(this.dino, this.cactuses, this.hitcactus, null, this);
     }
 
     addOneCactus(x, y) {
@@ -85,6 +92,16 @@ class Scene2 extends Phaser.Scene {
         }, cactus);
     }
 
+    
+    jump() {
+        if (this.dino.alive == false)
+            return;  
+
+       
+        this.dino.setVelocityY(-600);
+    }
+
+
     addRowOfcactuses() {
         var numberOfBoxes = Math.floor(Math.random() * 3) + 1;  
     
@@ -93,13 +110,24 @@ class Scene2 extends Phaser.Scene {
             this.addOneCactus(800, i * - 30 + 340);   
             this.score += 1;
             this.labelScore.text = this.score;
-    }
-
-    jump() {
-        if (this.dino.alive == false)
-            return;  
-
+    }  
+    
+    hitcactus(dino, cactus) {
        
-        this.dino.setVelocityY(-600);
+            this.physics.pause();
+
+            dino.setTint(0xff0000);
+
+            this.labelScore.destroy();
+
+            this.gameOverText.text = "Game over baby"
+
+            this.gameOver = true;
+            
+            this.dino.alive = false
+
+           // Set z-index just in case your text show behind the background.
+            this.gameOverText.setDepth(1);
     }
+
 }
