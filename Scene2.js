@@ -14,7 +14,7 @@ class Scene2 extends Phaser.Scene {
     
       
         this.dino = this.physics.add.sprite(100, 340, 'dino');
-        this.dino.setGravityY(1500)            
+        this.dino.setGravityY(1500);
         this.dino.setCollideWorldBounds(true)
 
         this.ground = this.physics.add.staticImage(0, 400, 'ground');
@@ -22,18 +22,16 @@ class Scene2 extends Phaser.Scene {
         this.physics.add.collider(this.cactuses, this.ground);
         this.physics.add.collider(this.dino, this.cactuses, this.hitcactus, null, this);
 
-       // this.spacebar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+       this.spacebar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
      
        this.cursors = this.input.keyboard.createCursorKeys();
 
         this.time.addEvent({
-            delay: 1500,
+            delay: 1300,
             callback: this.addRowOfcactuses,
             callbackScope: this,
             loop: true
         });
-        
-        
     }
 
     
@@ -43,19 +41,10 @@ class Scene2 extends Phaser.Scene {
         // Call the 'restartGame' function
         if (this.dino.alive = false)
             this.gameOver = true;
-           
 
-        this.ground.tilePositionX += 3;
-
-        
-        if (this.cursors.up.isDown && this.dino.body.touching.down)
-        {
-            this.dino.setVelocityY(-720);
+        if(Phaser.Input.Keyboard.JustDown(this.spacebar) && this.dino.body.touching.down) {
+            this.dino.setVelocityY(-770);
         }
-
-        // if(Phaser.Input.Keyboard.JustDown(this.spacebar)) {
-        //     this.jump()
-        // }
         
         this.physics.add.overlap(this.dino, this.cactuses, this.hitcactus, null, this);
     }
@@ -92,15 +81,6 @@ class Scene2 extends Phaser.Scene {
         }, cactus);
     }
 
-    
-    jump() {
-        if (this.dino.alive == false)
-            return;  
-
-       
-        this.dino.setVelocityY(-600);
-    }
-
 
     addRowOfcactuses() {
         var numberOfBoxes = Math.floor(Math.random() * 3) + 1;  
@@ -120,7 +100,7 @@ class Scene2 extends Phaser.Scene {
 
             this.labelScore.destroy();
 
-            this.gameOverText.text = "Game over baby"
+            this.gameOverText.text = "Game over baby, Score: "+this.score
 
             this.gameOver = true;
             
