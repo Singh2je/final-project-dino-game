@@ -3,7 +3,7 @@ var mainState = {
     preload: function() { 
         // Load the dino sprite
         game.load.image('dino', 'assets/dino-idle.png'); 
-        game.load.image('ground', 'assets/ground.png')
+        game.load.image('ground', 'assets/ground.png');
         game.load.image('cactus', 'assets/cactus.png');
     },
     
@@ -23,11 +23,26 @@ var mainState = {
     
         // Set the physics system
         game.physics.startSystem(Phaser.Physics.ARCADE);
+        
     
-        // Display the dino at the position x=100 and y=350
-        this.dino = game.add.sprite(100, 350, 'dino');
+        // Display the dino and the ground
+        this.dino = game.add.sprite(100, 340, 'dino');
+        game.physics.arcade.enable(this.dino);
+        this.dino.enableBody = true;
+        
         this.ground = this.add.tileSprite(0, 380, 800, 26, 'ground');
-    
+        this.ground.physicsType = Phaser.SPRITE;
+        game.physics.arcade.enable(this.ground);
+        this.ground.checkWorldBounds = true;
+        this.ground.enableBody= true;
+        this.ground.immovable= true;
+        
+        
+        
+        
+        
+
+
         // Add physics to the dino
         game.physics.arcade.enable(this.dino);
     
@@ -53,6 +68,8 @@ var mainState = {
 
         game.physics.arcade.overlap(
             this.dino, this.cactuses, this.hitcactus, null, this);
+        
+            game.physics.arcade.collide(this.dino, this.ground);    
     },
 
         // Make the dino jump 
@@ -67,6 +84,7 @@ var mainState = {
         
 
     },
+
     
 
     // Restart the game
@@ -128,6 +146,13 @@ var mainState = {
             p.body.velocity.x = 0;
         }, this);
     }, 
+
+    // resetDino: function() {
+    //     this.dino.x = 100;
+    //     this.dino.y = 340;
+    //     this.ground.x = 100;
+    //     this.ground.y = 340;
+    // }
 };
 
 // Initialize Phaser, and create a 400px by 490px game
