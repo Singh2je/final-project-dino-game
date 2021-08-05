@@ -3,6 +3,7 @@ var gameSettings = {
 }
 
 var config = {
+    type: Phaser.AUTO,
     width: 800,
     height: 490,
     backgroundColor: `#F2F2F2`,
