@@ -13,9 +13,10 @@ class Scene2 extends Phaser.Scene {
         this.cactuses = this.physics.add.group(); 
     
       
-        this.dino = this.physics.add.sprite(100, 340, 'dino');
+        this.dino = this.physics.add.sprite(100, 340, 'dino-run');
         this.dino.setGravityY(1500);
         this.dino.setCollideWorldBounds(true)
+        this.dino.play("dino-run");
 
         this.ground = this.physics.add.staticImage(0, 400, 'ground');
         this.physics.add.collider(this.dino, this.ground);

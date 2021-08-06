@@ -9,9 +9,10 @@ class Scene1 extends Phaser.Scene {
         this.load.image('ground', 'assets/ground.png')
         this.load.image('cactus', 'assets/cactus.png');
 
+
         this.load.spritesheet('dino-run', 
         'assets/dino-run.png',
-        { frameWidth: 32, frameHeight: 48 }
+        { frameWidth: 88, frameHeight: 94 }
     );
     }
 
@@ -26,8 +27,8 @@ class Scene1 extends Phaser.Scene {
         // });
 
         this.anims.create({
-            key: 'right',
-            frames: this.anims.generateFrameNumbers('dino-run', { start: 5, end: 8 }),
+            key: 'dino-run',
+            frames: this.anims.generateFrameNumbers('dino-run', {start: 2, end: 3}),
             frameRate: 10,
             repeat: -1
         });
