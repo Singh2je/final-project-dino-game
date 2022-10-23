@@ -1,3 +1,3 @@
 # final-project-dino-game
 
-Hello test
+This application can be accessed here: https://singh2je.github.io/final-project-dino-game/
