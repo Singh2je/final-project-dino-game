@@ -101,7 +101,7 @@ class Scene2 extends Phaser.Scene {
 
             this.labelScore.destroy();
 
-            this.gameOverText.text = "Game over baby, Score: "+this.score
+            this.gameOverText.text = "Game over! Score: "+this.score
 
             this.gameOver = true;
             
